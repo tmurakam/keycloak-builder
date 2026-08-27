@@ -19,6 +19,11 @@ shift
 
 cd "$KEYCLOAK_DIR"
 
+# docs/guides copies its own generated output into itself on every non-clean
+# rebuild, nesting target/generated-guides one level deeper each time until
+# it fills the disk. Wipe it before every build since we don't run "clean".
+rm -rf docs/guides/target
+
 REF="$(git rev-parse --abbrev-ref HEAD)"
 LOG_FILE="build-${REF//\//_}-$(date +%Y%m%d-%H%M%S).log"
 
