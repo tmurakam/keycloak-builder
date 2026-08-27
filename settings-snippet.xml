@@ -1,0 +1,34 @@
+<!--
+  Merge these <mirrors> and <profiles> entries into your ~/.m2/settings.xml.
+  See README.md for the full explanation.
+-->
+<settings>
+    <mirrors>
+        <mirror>
+            <id>jboss-public-repository-mirror</id>
+            <mirrorOf>jboss-public-repository,jboss-public-repository-group</mirrorOf>
+            <url>http://127.0.0.1:8477/</url>
+        </mirror>
+    </mirrors>
+
+    <profiles>
+        <!--
+          WildFly Galleon's "universe" dependency resolution (used when
+          building the legacy WildFly/EAP adapter distributions) does not
+          honor <mirror> substitution, so the proxy needs to also be
+          registered as a plain <repository> here.
+        -->
+        <profile>
+            <id>keycloak-builder-repo</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>jboss-public-repository-direct</id>
+                    <url>http://127.0.0.1:8477/</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+</settings>
